@@ -1,6 +1,8 @@
 package com.example.fragmentimplementation;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.widget.LinearLayout;
@@ -29,6 +31,32 @@ public class MainActivity extends AppCompatActivity implements GreenFragment.Ite
         setContentView(R.layout.activity_main);
         descriptions = getResources().getStringArray(R.array.descriptions);
 
+        //Here we have created a second same activity.xml file in the new directory
+        // the new directory is not visible here but rather is in the resource folder in finder
+        //Here two different ids given the xml files in which we have given portrait a portrait id
+        // and vice versa
+
+        //if phone is in portrait mode then the detailfragment is hiden and only list fragment is viewed
+        // and in landscape mode we have both of them visible
+
+        if(findViewById(R.id.layout_portrait) != null)
+        {
+            FragmentManager man = this.getSupportFragmentManager();
+            man.beginTransaction()
+                    .hide(man.findFragmentById(R.id.fragmentContainerView4))
+                    .show(man.findFragmentById(R.id.fragmentContainerView3))
+                    .commit();
+        }
+        if(findViewById(R.id.layout_land) != null)
+        {
+            FragmentManager man = this.getSupportFragmentManager();
+            man.beginTransaction()
+                    .show(man.findFragmentById(R.id.fragmentContainerView4))
+                    .show(man.findFragmentById(R.id.fragmentContainerView3))
+                    .commit();
+        }
+
+
 
 
     }
@@ -38,6 +66,21 @@ public class MainActivity extends AppCompatActivity implements GreenFragment.Ite
 
         dfrag = (BlueFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView4);
         dfrag.youvGotMail(descriptions[index]);
+
+        // Here if the phone is in portrait mode we will not been able to see the
+        //description as we hide it in above so as to make it run we need to again show
+        //it while clicking on to the list fragment therefore we hide list fragment
+        //after clicking item on the list we will able to detail fragment that
+        // we are showing
+        if(findViewById(R.id.layout_portrait)!=null)
+        {
+            FragmentManager man = this.getSupportFragmentManager();
+            man.beginTransaction()
+                    .show(man.findFragmentById(R.id.fragmentContainerView4))
+                    .addToBackStack(null)//After return to listfragment after back from description fragment rather closing down the app
+                    .hide(man.findFragmentById(R.id.fragmentContainerView3))
+                    .commit();
+        }
 
 
     }

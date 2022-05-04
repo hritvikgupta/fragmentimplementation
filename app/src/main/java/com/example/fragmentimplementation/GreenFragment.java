@@ -66,6 +66,12 @@ public class GreenFragment extends Fragment implements ListAdapter {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //item = (String) list.getItemAtPosition(i);
                 pos = i;
+
+                //In order to access the main activity layout from here
+                //without importing it we use this.getActivity()
+                //therefore this.getActivity().findViewById() will run similarly.
+
+
                 activtiy.OnItemSelected(0);
                 Toast.makeText(getActivity(), "You Clicked On: " + i,Toast.LENGTH_SHORT).show();
                 activtiy.OnItemSelected(i);
