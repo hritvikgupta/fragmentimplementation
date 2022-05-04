@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class GreenFragment extends Fragment implements ListAdapter {
 
     ListView list;
-    ArrayList<String> arr;
+    String [] arr;
     LayoutInflater inflater;
     ViewGroup container;
     private ItemSelected activtiy;
@@ -57,9 +57,7 @@ public class GreenFragment extends Fragment implements ListAdapter {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         list = view.findViewById(R.id.list);
-        arr = new ArrayList<String>();
-        arr.add("This is item 1:");
-        arr.add("This is item 2:" );
+        arr = getResources().getStringArray(R.array.pieces);
         ArrayAdapter<String> ad = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,arr);
         list.setAdapter(ad);
 
@@ -68,6 +66,7 @@ public class GreenFragment extends Fragment implements ListAdapter {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //item = (String) list.getItemAtPosition(i);
                 pos = i;
+                activtiy.OnItemSelected(0);
                 Toast.makeText(getActivity(), "You Clicked On: " + i,Toast.LENGTH_SHORT).show();
                 activtiy.OnItemSelected(i);
                 //dfreg.youvGotMail(i);

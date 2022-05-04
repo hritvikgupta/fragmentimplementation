@@ -1,20 +1,22 @@
 package com.example.fragmentimplementation;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
-
+/*
+Ths solution to the unanimously closing of the app is wriiten here
+// use the fragment manger in the main to pass the data from one
+fragment to another
+https://www.tutorialspoint.com/how-to-pass-data-from-one-fragment-to-another-fragment-in-android#:~:text=How%20to%20pass%20data%20from%20one%20fragment%20to%20another%20fragment%20in%20android%3F,-AndroidMobile%20Development&text=Step%201%20%E2%88%92%20Create%20a%20new,xml.
+ */
 public class MainActivity extends AppCompatActivity implements GreenFragment.ItemSelected {
 
-    ArrayList<String> descriptions;
+    String [] descriptions;
     TextView tvDescription;
     BlueFragment dfrag;
     GreenFragment lv;
@@ -25,9 +27,8 @@ public class MainActivity extends AppCompatActivity implements GreenFragment.Ite
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        descriptions = new ArrayList<String>();
-        descriptions.add("You Have Clicked On item 1");
-        descriptions.add("You Have Clicked On item 2");
+        descriptions = getResources().getStringArray(R.array.descriptions);
+
 
 
     }
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements GreenFragment.Ite
     public void OnItemSelected(int index) {
 
         dfrag = (BlueFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView4);
-        dfrag.youvGotMail(descriptions.get(index));
+        dfrag.youvGotMail(descriptions[index]);
 
 
     }
